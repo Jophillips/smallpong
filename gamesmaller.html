@@ -1,0 +1,43 @@
+<center><canvas id='g' width="640" height="480" style="border: 3px solid;"></canvas>
+<script>
+p1y=p2y=40;pt=10;ph=100;bx=by=50;bd=25;xv=yv=4;s1=s2=0;ais=6;
+
+function r(){bx=320;by=240;	xv=-xv;	yv=3;}
+
+window.onload=function(){canvas=document.getElementById('g');c=canvas.getContext('2d');setInterval(ud,1000/45);}
+
+function ud(){
+
+	document.addEventListener("mousemove", function(e){var mY = e.clientY;p1y = mY-ph/2;});
+
+	bx+=xv;by+=yv;
+
+	if(by<0 && yv<0){yv=-yv;}
+	if(by>canvas.height && yv>0){yv=-yv;}
+
+	if(bx<0){if(by>p1y && by<p1y+ph){xv=-xv;dy=by-(p1y+ph/2);yv = dy*0.3;} 
+	else{s2++;r();}
+	}
+	if(bx>640){if(by>p2y && by<p2y+ph){xv=-xv;dy=by-(p2y+ph/2);yv = dy*0.3;}
+	 else{s1++;r();}
+	}
+
+	if (p2y+(ph/2) < by || p2y-(ph/2) > by) {
+		if(p2y+ph/2<by){p2y+=ais;} 
+		else{p2y-=ais;}
+	}
+
+	c.clearRect(0,0,640,480);
+	c.fillStyle='black';
+	c.fillRect(0,0,640,480);
+
+	c.fillStyle='white';
+	c.fillRect(0,p1y,pt,ph);
+	c.fillRect(640-pt,p2y,pt,ph); 
+	c.fillRect(bx-bd/2,by-bd/2,bd,bd);m
+
+	c.font="42px sans-serif";
+	c.fillText(s1,100,100);
+	c.fillText(s2,640-120,100);
+}
+</script>
